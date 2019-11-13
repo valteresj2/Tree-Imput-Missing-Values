@@ -22,21 +22,11 @@ from info_gain import info_gain
 
 ROOT_DIR = os.path.abspath(os.curdir)
 
-files=glob.glob(ROOT_DIR+'/Data/*')
-files=np.sort(files)
 
-alvo=[14,19,'y',8]
-kk=files[2]
-index=2
-data = pd.read_csv(kk,sep=';')#,header=-1)
-#data.replace('?',None,inplace=True)
 
-#data[[1,2,3,4,5]] = data[[1,2,3,4,5]].replace(0, np.nan)
-#data.columns=['V_'+str(i) for i in range(len(data.columns))]
+data = pd.read_csv('bank-full.csv',sep=';')
 
-#target='V_'+str(alvo[index])
-#idx=random.sample(list(range(len(data))),round(0.2*len(data)))
-#data.loc[idx,'contact']=None
+
 data.loc[np.where(data['poutcome']=='unknown')[0],'poutcome']=None
 data.loc[np.where(data['job']=='unknown')[0],'job']=None
 data.loc[np.where(data['education']=='unknown')[0],'education']=None
@@ -50,7 +40,7 @@ newdt=ImputMissing.IMV(data=data,target=target)
 newdata=newdt.ImputMissingValues()
 
 
-#imputed_training=mice(pd.get_dummies(data.drop(labels=target,axis=1)).values)
+
 
 newdata1=data.copy()
 type_var=data.dtypes
@@ -88,13 +78,13 @@ for i in data.columns:
         orig.append(info_gain.info_gain(list(data[target]), list(data[i])))
         tech.append(info_gain.info_gain(list(newdata[target]), list(newdata[i])))
         missing.append(sum(pd.isna(data[i])==True)/len(data))
-        #deep.append(info_gain.info_gain(list(data[target]), list(newdata1[i])))
+        
     
 
 ixx=np.where(pd.isna(data[i])==True)[0]      
 newdata.loc[ixx,i]
 newdata1.loc[ixx,i] 
-result=pd.DataFrame({'size_missing':missing,'Var':var,'Orig':orig,'Tech':tech})#,'Deep':deep})
+result=pd.DataFrame({'size_missing':missing,'Var':var,'Orig':orig,'Tech':tech})
 
 
 
