@@ -32,3 +32,20 @@ Figure 1 illustrates the extracted result based on the experiment found in scitk
 
 From the results obtained, we have a good performance in the study bases losing only three, so we can argue that this approach presents a substantial gain compared to the proposed techniques, another gain detail and the learning processing time compared to DataWig, in the Australian base for example TMI presented 8s of response and while DataWig presented 85s, with this we have a gain of 10 times more and this varies according to the amount of epochs defined by the user.
 At the Mushroom base where it already has a high predictive power we are able to leverage performance by jumping to maximum performance. Base Housevotes all its variables are categorical and binary and with high sensitivity and so much so that DataWig had a very significant performance drop, our approach showed better performance stability between fold results.
+
+### Algorithm usage
+Parameters of imput of function IMV
+<ol>
+<li>data: Input data for training</li>
+<li>target: Name of target variable to remove from training to avoid overfiting problem.</li>
+<li>save_model: Boolean to save or not save each generate model, all the saves will be in the format .npy.</li>
+</ol>
+
+Parameters of imput of function predict
+
+<ol>
+<li>new_dt: Input new data for predict of missing values.</li>
+<li>new_weights: Weigths generate by model.</li>
+<li>new_pre_processing: Preprocessing generate by model.</li>
+</ol>
+
